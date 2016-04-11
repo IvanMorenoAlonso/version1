@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<html lang="es">
+<head>
+<title>Listado Megapro++</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/alertify.min.js"></script>
+<link rel="stylesheet" href="css/alertify.core.css">
+<link rel="stylesheet" href="css/alertify.default.css">
+
+
+</head>
+<body>
+
+<div><p><button id="botonnuevousuario" class="btn btn-success">Añadir Usuario</button>
+<button id="botoneliminarseleccionados" class="btn btn-warning">Eliminar seleccionados</button>
+<button id="botonseleccionartodos" class="btn btn btn-primary">Seleccionar todos</button></p>
+</div>
+
+<table border="1" id="tabla1"  class="table table-hover"  >
+<tbody id="cuerpotabla"></tbody>
+</table>
+
+
+		<!-- Modal info usuario -->
+		<div id="modal_info_usuario" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			 <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title">Datos de Usuario</h4>
+				</div>
+					<div class="modal-body">
+					<div id="salidainfo"></div>
+					<div id="map" style="width:500px;height:380px;"></div>
+					</div>
+			  <div class="modal-footer">
+				  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+				</div>
+			</div>
+			 </div>
+		</div>
+
+
+	<!-- Modal nuevo usuario-->
+	<div id="modal_nuevo_usuario" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title"><b>Datos de Usuario</b></h4>
+			</div>
+			 <div class="modal-body">
+				<div>
+				<dl><h4> <b>Datos Generales</b></h4></dl>
+				<p> <b>Nombre: </b><input id="textonombre" type="text" class="form-control" placeholder="Introduzca nombre..."></p>
+				<p> <b>Usuario: </b> <input id="textousuario" type="text" class="form-control" placeholder="Introduzca nombre de usuario..."></p>
+				<p> <b>Email: </b> <input id="textoemail" type="text" class="form-control" placeholder="Introduzca email..."></p>
+				<dl><h4> <b><br/><br/>Dirección</b></h4></dl>
+				<p> <b>Calle: </b> <input id="textocalle" type="text" class="form-control" placeholder="Introduzca calle..."></p>
+				<p> <b>Número: </b> <input id="textonumero" type="text" class="form-control" placeholder="Introduzca número de calle..."></p>
+				<p> <b>Ciudad: </b> <input id="textociudad" type="text" class="form-control" placeholder="Introduzca ciudad..."></p>
+				<p> <b>Código Postal: </b> <input id="textocp" type="text" class="form-control" placeholder="Introduzca código postal..."></p>
+				<p> <b>Latitud: </b><input id="textolatitud" type="text" class="form-control" placeholder="Introduzca latitud..."></p>
+				<p> <b>Longitud: </b> <input id="textolongitud" type="text" class="form-control" placeholder="Introduzca longitud..."></p>
+				<p> <b>Teléfono: </b><input id="textotelefono" type="text" class="form-control" placeholder="Introduzca telefono..."></p>
+				<p> <b>Web: </b><input id="textoweb" type="text" class="form-control" placeholder="Introduzca web..."></p>
+				<dl><h4> <b><br/><br/>Empresa</b></h4></dl>
+				<p> <b>Compañía: </b> <input id="textoempresa" type="text" class="form-control" placeholder="Introduzca empresa..."></p>
+				<p> <b>Slogan: </b> <input id="textoslogan" type="text" class="form-control" placeholder="Introduzca slogan..."></p>
+				<p> <b>Descripción Empresa: </b> <input id="textodesc" type="text" class="form-control" placeholder="Introduzca descripción de la empresa..."></p>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			  <button id="botoninsertarusuario" class="btn btn-success" >Aceptar</button>
+			</div>
+		</div>
+		 </div>
+	</div>
+
+
+	<!-- Modal editar usuario-->
+	<div id="modal_editar_usuario" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">Editar Datos de Usuario</h4>
+			</div>
+			 <div class="modal-body">
+			<div id="salidaeditar"></div>
+		  </div>
+		  <div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			  <button id="botoneditarusuario" class="btn btn-success">Editar</button>
+			</div>
+		</div>
+		 </div>
+	</div>
+
+
+		<!-- Plantilla Info Usuario -->
+		<script id="info_usuario" type="text/x-handlebars-template">
+		<dl><h4> <b>Datos Generales</b></h4></dl>
+		<p> <b>Id: </b>{{id}}</p>
+		<p> <b>Nombre: </b>{{name}} </p>
+		<p> <b>Usuario: </b>{{username}} </p>
+		<p> <b>Email: </b>{{email}} </p>
+		<dl><h4> <b><br/><br/>Dirección</b></h4></dl>
+		<p> <b>Calle: </b>{{address_street}} </p>
+		<p> <b>Número: </b>{{address_suite}} </p>
+		<p> <b>Ciudad: </b>{{address_city}} </p>
+		<p> <b>Código Postal: </b>{{address_zipcode}} </p>
+		<p> <b>Latitud: </b>{{address_geo_lat}} </p>
+		<p> <b>Longitud: </b>{{address_geo_lng}} </p>
+		<p> <b>Teléfono: </b>{{phone}} </p>
+		<p> <b>Web: </b>{{website}} </p>
+		<dl><h4> <b><br/><br/>Empresa</b></h4></dl>
+		<p> <b>Compañía: </b>{{company_name}} </p>
+		<p> <b>Slogan: </b>{{company_catchPhrase}} </p>
+		<p> <b>Descripción Empresa: </b>{{company_bs}} </p>
+		</script>
+
+		
+		<!-- Plantilla Editar Usuario -->
+		<script id="editar_usuario" type="text/x-handlebars-template">
+		<dl><h4> <b>Datos Generales</b></h4></dl>
+		<p id="aaa"> </p>
+		<p> <b>Calle: </b> <input id="editarcalle" type="text" class="form-control" value="{{address_street}}"></p>
+		<p> <b>Número: </b> <input id="editarnumero" type="text" class="form-control" value="{{address_suite}}"></p>
+		<p> <b>Ciudad: </b> <input id="editarciudad" type="text" class="form-control"  value="{{address_city}}"></p>
+		<p> <b>Código Postal: </b> <input id="editarcp" type="text" class="form-control"  value="{{address_zipcode}}"></p>
+		<p> <b>Latitud: </b><input id="editarlatitud" type="text" class="form-control"  value="{{address_geo_lat}}"></p>
+		<p> <b>Longitud: </b> <input id="editarlongitud" type="text" class="form-control"  value="{{address_geo_lng}}" ></p>
+		<p> <b>Web: </b><input id="editarweb" type="text" class="form-control"  value="{{website}}"></p>
+		<dl><h4> <b><br/><br/>Empresa</b></h4></dl>
+		<p> <b>Compañía: </b> <input id="editarempresa" type="text" class="form-control" value="{{company_name}}"></p>
+		<p> <b>Slogan: </b> <input id="editarslogan" type="text" class="form-control" value="{{company_catchPhrase}}"></p>
+		<p> <b>Descripción Empresa: </b> <input id="editardesc" type="text" class="form-control" value="{{company_bs}}"></p>
+		</script>
+
+
+ 
+<!-- Handlebars -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+ 
+  
+</body>
+</html>
